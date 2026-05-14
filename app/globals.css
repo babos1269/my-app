@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Active le dark mode par classe (.dark sur <html>) */
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Tokens de couleur ─────────────────────────────── */
+:root {
+  --bg:        #f2f2f7;   /* gris iOS clair */
+  --bg-card:   #ffffff;
+  --border:    #e5e7eb;
+  --text:      #1c1c1e;
+  --text-sub:  #6b7280;
+  --accent:    #059669;   /* emerald-600 */
+  --accent-fg: #ffffff;
+}
+
+.dark {
+  --bg:        #000000;
+  --bg-card:   #1c1c1e;   /* noir iOS */
+  --border:    #2c2c2e;
+  --text:      #f2f2f7;
+  --text-sub:  #8e8e93;
+  --accent:    #34d399;   /* emerald-400 — plus lisible sur fond sombre */
+  --accent-fg: #000000;
+}
+
+/* ─── Base ──────────────────────────────────────────── */
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "SF Pro Text", var(--font-geist-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+/* ─── Interaction mobile ────────────────────────────── */
+button, a, [role="button"], input, select, textarea, label {
+  touch-action: manipulation;
+}
+
+input, select, textarea {
+  font-size: max(16px, 1em);
+}
+
+.overflow-auto, .overflow-y-auto, .overflow-x-auto, .overflow-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── Feedback tactile ──────────────────────────────── */
+button:active:not(:disabled):not(.no-active) {
+  opacity: 0.65;
+  transform: scale(0.97);
+  transition: opacity 60ms, transform 60ms;
+}
+
+/* ─── Safe areas iOS ────────────────────────────────── */
+.safe-top    { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
+
+/* ─── Header verre dépoli (iOS-style) ──────────────────── */
+.header-with-notch {
+  background: rgba(242, 242, 247, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  padding-top: env(safe-area-inset-top);
+}
+
+.dark .header-with-notch {
+  background: rgba(28, 28, 30, 0.82);
+}
+
+/* ─── Animations performantes ───────────────────────── */
+.animate-spin { will-change: transform; }
+
+/* ─── Scrollbar discrète (webkit) ───────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
